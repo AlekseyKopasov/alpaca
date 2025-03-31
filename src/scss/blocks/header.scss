@@ -1,0 +1,58 @@
+@use "../mixins";
+
+@use "../variables";
+
+.header {
+  padding: 18px 0;
+  background-color: variables.$color-black-main;
+  box-shadow: 0 4px 4px 0 rgb(19 20 23 / 40%);
+
+  &__wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 96px;
+  }
+
+  &__logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+
+    transition: opacity variables.$trans-default;
+
+    @include mixins.hover {
+      opacity: 0.6;
+    }
+  }
+
+  &__logo-icon {
+    max-width: 46px;
+    max-height: 46px;
+    width: 100%;
+    height: 100%;
+    flex-shrink: 0;
+  }
+
+  &__phone {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px;
+
+    font-size: 18px;
+    font-weight: 500;
+
+    transition: opacity variables.$trans-default;
+
+    @include mixins.hover {
+      opacity: 0.6;
+    }
+  }
+
+  &__phone-icon {
+    flex-shrink: 0;
+    color: variables.$color-kelly-green;
+  }
+}

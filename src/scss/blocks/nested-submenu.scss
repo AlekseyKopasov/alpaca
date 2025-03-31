@@ -1,0 +1,60 @@
+@use "../mixins";
+
+@use "../variables";
+
+.nested-submenu {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  transform: translate3d(calc(100% + 22px), 0, 0);
+
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  border-radius: variables.$border-radius;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 0;
+    transform: translate3d(calc(-100% + 1px), calc(-100% - 6px), 0);
+
+    width: 0;
+    height: 0;
+    border-top: 12px solid transparent;
+    border-bottom: 12px solid transparent;
+    border-right: 14px solid variables.$color-black-secondary;
+  }
+
+  &__item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    padding: 7px 17px 7px 14px;
+    border-bottom: 1px solid rgb(255 255 255 / 10%);
+
+    background-color: variables.$color-black-secondary;
+    transition: background-color variables.$trans-default;
+
+    &:last-child {
+      border-bottom: none;
+      border-radius: 0 0 variables.$border-radius variables.$border-radius;
+    }
+
+    &:first-child {
+      border-radius: variables.$border-radius variables.$border-radius 0 0;
+    }
+
+    @include mixins.hover {
+      background-color: variables.$color-black-main;
+    }
+  }
+
+  &__link {
+    color: variables.$color-snow;
+    white-space: nowrap;
+  }
+}

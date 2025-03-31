@@ -1,0 +1,46 @@
+@use "../mixins";
+
+@use "../variables";
+
+.main-nav {
+
+  margin-left: auto;
+
+  &__list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    display: flex;
+    align-items: center;
+    gap: 40px;
+  }
+
+  &__item {
+    position: relative;
+  }
+
+  &__item-icon {
+    position: absolute;
+    top: 50%;
+    right: 0;
+
+    transform: translate3d(0, -40%, 0);
+  }
+
+  &__link {
+    padding: 8px 18px;
+    font-family: inherit;
+    font-size: 18px;
+    font-weight: 400;
+    color: inherit;
+
+    white-space: nowrap;
+
+    transition: color variables.$trans-default;
+
+    @include mixins.hover {
+      color: variables.$color-flamingo;
+    }
+  }
+}

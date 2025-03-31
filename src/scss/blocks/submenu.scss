@@ -1,0 +1,71 @@
+@use "../mixins";
+
+@use "../variables";
+
+.submenu {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  display: flex;
+  flex-direction: column;
+
+  max-width: 320px;
+
+  position: absolute;
+  top: calc(100% + 27px);
+  left: 0;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: translate3d(48px, -100%, 0);
+
+    width: 0;
+    height: 0;
+
+    border-left: 12px solid transparent;
+    border-right: 12px solid transparent;
+    border-bottom: 14px solid variables.$color-black-secondary;
+  }
+
+  &__item {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    padding: 4px 18px;
+    border-bottom: 1px solid rgb(255 255 255 / 10%);
+
+    background-color: variables.$color-black-secondary;
+    transition: background-color variables.$trans-default;
+
+    &:last-child {
+      border-bottom: none;
+      border-radius: 0 0 variables.$border-radius variables.$border-radius;
+    }
+
+
+    @include mixins.hover {
+      background-color: variables.$color-black-main;
+    }
+  }
+
+  &__link {
+    display: block;
+    color: variables.$color-snow;
+    padding: 3px 0;
+    white-space: nowrap;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+  }
+
+  &__link-icon {
+    transform: rotate(90deg);
+  }
+}

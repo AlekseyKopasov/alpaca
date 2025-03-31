@@ -1,0 +1,27 @@
+mixin main-nav()
+  nav.main-nav
+    ul.main-nav__list
+      li.main-nav__item
+        a.main-nav__link(href="/") Главная
+      li.main-nav__item.has-dropdown
+        a.main-nav__link(href="#") Основное меню
+        +icon("icon_drop", 9, 9).main-nav__item-icon
+        ul.submenu
+          li.submenu__item
+            a.submenu__link(href="#") Заказать вёрстку
+          li.submenu__item
+            a.submenu__link(href="#") Отправить макет на проверку
+          li.submenu__item
+            a.submenu__link(href="#") Хочу работать у вас
+          li.submenu__item.has-nested-dropdown
+            a.submenu__link(href="#") Есть предложение по работе с клиентами
+            +icon("icon_drop", 9, 9).submenu__link-icon
+            ul.nested-submenu
+              li.nested-submenu__item
+                a.nested-submenu__link(href="#") У меня есть оффер
+              li.nested-submenu__item
+                a.nested-submenu__link(href="#") Сделать партнёром
+      li.main-nav__item
+        a.main-nav__link(href="#") Наши сервисы
+      li.main-nav__item
+        a.main-nav__link(href="#") Контакты
