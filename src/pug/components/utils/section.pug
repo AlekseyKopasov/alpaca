@@ -1,0 +1,20 @@
+mixin section(props)
+  - const title = props.title ? props.title : props; // можно передать только строку с заголовком
+  - const id = props.id ? props.id : null;
+  - const isHidden = props.isHidden ? props.isHidden : null;
+  - const subtitle = props.subtitle ? props.subtitle : null;
+  - const titleMod = props.titleMod ? props.titleMod : null;
+  - const icon = props.icon ? props.icon : null;
+
+  section.section(id=id)&attributes(attributes)
+    if (title)
+      h2.title.title--h2(class=titleMod ? props.titleMod : false, class=isHidden ? "visually-hidden" : null)
+        span.section__lead
+          if (icon)
+            +icon(icon.name, icon.width, icon.height).section__icon
+          span!= title
+
+        if (subtitle)
+          span.title__subtitle!= subtitle
+
+    block

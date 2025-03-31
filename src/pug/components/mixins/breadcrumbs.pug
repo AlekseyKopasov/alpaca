@@ -1,0 +1,13 @@
+mixin breadcrumbs(items)
+  nav.breadcrumbs
+    a.breadcrumbs__main(aria-label="Главная страница", href="/pug/pages/")
+      +icon("icon_home", 24, 24)
+    ul
+      each i in items
+        li
+          if i.active === true
+            span.breadcrumbs__delimiter /
+            span.breadcrumbs__link.breadcrumbs__link--active= i.text
+          else
+            span.breadcrumbs__delimiter /
+            a.breadcrumbs__link(href=i.link)= i.text

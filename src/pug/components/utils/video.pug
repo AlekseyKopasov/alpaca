@@ -1,0 +1,29 @@
+mixin video(params = {})
+  - const type = params.type ? true : false;
+
+  .video
+    if type && params.type === "external"
+      - const attributes = params.attributes;
+      - const width = attributes.width ? attributes.width : "100";
+      - const height = attributes.height ? attributes.height : "100";
+      - const src = attributes.src ? attributes.src : "";
+      - const frameBorder = attributes.frameBorder ? attributes.frameBorder : "0";
+      - const allow = attributes.allow ? attributes.allow : "";
+
+      - const allowFposterullScreen = params.poster ? params.poster : false;
+
+      iframe(
+        width=width,
+        height=height,
+        src=src,
+        allow=allow
+      )
+
+    else
+      - const controls = params.controls ? params.controls : true;
+      - const poster = params.poster ? params.poster : null;
+      - const sources = params.sources;
+
+      video(controls=controls, poster=poster)
+        each source in sources
+          source(src=source.path, type=source.type)

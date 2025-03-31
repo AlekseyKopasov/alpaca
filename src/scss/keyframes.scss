@@ -1,0 +1,39 @@
+// используйте для скрытия нежелательных анимаций-скачков при поворотах экрана
+
+@keyframes disable-breakpoint-animation {
+
+  0% {
+    visibility: hidden;
+    opacity: 0;
+  }
+
+  100% {
+    visibility: hidden;
+    opacity: 0;
+  }
+}
+
+@keyframes show-content {
+
+  0% {
+    transform: scaleY(0.9);
+    opacity: 0;
+  }
+
+  100% {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+}
+
+@keyframes slide-in-down {
+
+  from {
+    transform: translate3d(0, -100%, 0);
+    visibility: visible;
+  }
+
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}

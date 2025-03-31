@@ -1,0 +1,20 @@
+//- &nbsp; = \u00a0
+//- &mdash; = \u2014
+//- &laquo; = \u00ab
+//- &raquo; = \u00bb
+//- &#8470; = \u2116
+
+extends ../../components/base/layout.pug
+
+block variables
+  - const title = "Alpaca"; //- на страницах кроме главной используйте О нас — ProjectName
+  - const currentUrl = "index.html";
+
+block main
+  main
+    .container
+      h1 Список страниц
+
+  block scripts
+    //- script(src="/ts/vendor.ts", type="module")
+    //- script(src="/ts/chunks/base.ts", type="module")

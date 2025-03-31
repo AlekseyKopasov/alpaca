@@ -1,0 +1,44 @@
+{
+  "extends": [
+    "stylelint-config-standard-scss",
+    "stylelint-config-recommended-scss",
+    "stylelint-config-prettier-scss"
+  ],
+  "plugins": [
+    "stylelint-prettier",
+    "stylelint-scss",
+    "@stylistic/stylelint-plugin"
+  ],
+  "rules": {
+    "selector-class-pattern": null,
+    "rule-empty-line-before": "always-multi-line",
+    "at-rule-empty-line-before": "always",
+    "color-hex-length": "long",
+    "selector-max-id": 2,
+    "no-empty-source": [true,{
+      "severity": "warning"
+    }
+    ],
+    "selector-no-vendor-prefix": [
+      true,
+      {
+        "ignoreSelectors": [
+          "::-webkit-input-placeholder",
+          "::-moz-placeholder",
+          ":-ms-input-placeholder",
+          ":-moz-placeholder"
+        ]
+      }
+    ],
+    "declaration-empty-line-before": [
+      "always", {
+        "except": ["after-comment", "first-nested"],
+        "ignore": ["after-comment", "after-declaration", "first-nested", "inside-single-line-block"]
+      }
+    ],
+
+
+    "@stylistic/indentation": 2,
+    "no-descending-specificity": null
+  }
+}

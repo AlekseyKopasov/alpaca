@@ -1,0 +1,48 @@
+mixin pagination(params = {})
+  - const count = params.count ? params.count : 1;
+  - const mod = params.mod ? params.mod : "";
+  - const url = params.url ? params.url : "";
+  - const showInput = params.showInput && params.showInput === true ? "true" : false;
+  - const inputTitle = params.inputTitle ? params.inputTitle : false;
+  - let display = params.display ? params.display : 10;
+
+  .pagination(
+    class=mod ? "pagination--" + mod : null,
+    data-count=count,
+    data-display=display,
+    data-input-title=inputTitle,
+    data-pagination,
+    data-show-input=showInput,
+    data-url=url
+  )&attributes(attributes)
+    //- if showInput
+    //-   +custom-input({
+    //-     label: "С кнопкой",
+    //-     name: "user-name-1",
+    //-     btn: {
+    //-       label: "Отравить",
+    //-       type: "button"
+    //-     },
+    //-   })
+
+    //- .pagination__list-wrapper
+    //-   ul.pagination__list
+  //-   button.pagination__btn.pagination__btn--prev.is-disabled(type="button", tabindex="-1")
+  //-     +icon('icon_arrow-narrow', 18, 14).pagination__btn-icon
+
+  //-       - for (let i = 1; i <= count; i += 1)
+  //-         //- if i <= 5
+  //-         li.pagination__item
+  //-           if i === 1
+  //-             button.pagination__btn.pagination__btn--counter.is-active(data-id=i, type="button", tabindex="-1")
+  //-               span= i
+  //-           else
+  //-             button.pagination__btn.pagination__btn--counter(data-id=i, type="button")
+  //-               span= i
+
+  //-       //- li.pagination__item
+  //-       //-   button.pagination__btn.pagination__btn--counter.is-disabled(type="button", disabled)
+  //-       //-     span ...
+
+  //-   button.pagination__btn.pagination__btn--next(type="button")
+  //-     +icon('icon_arrow-narrow', 18, 14).pagination__btn-icon

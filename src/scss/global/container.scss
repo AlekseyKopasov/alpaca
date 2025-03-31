@@ -1,0 +1,20 @@
+@use '../mixins';
+
+.container {
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 122px;
+
+  @include mixins.vp-1279 {
+    padding: 0 40px;
+  }
+
+  @include mixins.vp-1023 {
+    padding: 0 22px;
+  }
+
+  @include mixins.vp-767 {
+    padding: 0 10px;
+  }
+}

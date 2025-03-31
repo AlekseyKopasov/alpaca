@@ -1,0 +1,44 @@
+mixin custom-select(options = {})
+  - const id = options.id ? options.id : false;
+  - const name = options.name ? options.name : false;
+  - const label = options.label ? options.label : false;
+  - const multiple = options.multiple ? `${options.multiple}` : false;
+  - const placeholder = options.placeholder ? options.placeholder : false;
+  - const required = options.required ? options.required : false;
+  - const disabled = options.disabled ? options.disabled : false;
+  - const readonly = options.readonly ? options.readonly : false;
+  - const value = options.value ? options.value : "";
+  - const ariaLabel = options.ariaLabel ? options.ariaLabel : "Выберите одну из опций";
+
+  div(
+    class=disabled || readonly ? "is-disabled" : null,
+    data-name=name,
+    data-value=value,
+    data-id=id,
+    data-required=required,
+    data-multiple=multiple
+  )&attributes(attributes)
+    if label
+      span.custom-select__label= label
+
+    button.custom-select__button(
+      aria-label=ariaLabel,
+      type="button",
+      disabled=disabled,
+      readonly=readonly
+    )
+      if !value && placeholder
+        span.custom-select__placeholder= placeholder
+      span.custom-select__text= value
+      span.custom-select__icon
+    if !readonly
+      ul.custom-select__list(role="listbox", data-name=name)
+        each item in options.optionsList
+          - const ariaSelected = item.isActive ? "true" : "false";
+          li.custom-select__item(
+            aria-selected=ariaSelected,
+            class=itemClass,
+            data-select-value=item.value,
+            role="option",
+            tabindex="0"
+          )= item.text

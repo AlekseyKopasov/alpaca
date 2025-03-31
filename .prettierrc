@@ -1,0 +1,29 @@
+{
+  "plugins": ["@prettier/plugin-pug"],
+
+  "tabWidth": 2,
+  "useTabs": false,
+  "semi": true,
+  "singleQuote": true,
+  "trailingComma": "es5",
+  "printWidth": 120,
+  "arrowParens": "avoid",
+  "bracketSpacing": true,
+  "endOfLine": "auto",
+  "singleAttributePerLine": false,
+  "bracketSameLine": false,
+  "quoteProps": "as-needed",
+
+  "overrides": [
+    {
+      "files": ["*.pug"],
+      "options": {
+        "parser": "pug",
+        "singleQuote": false,
+        "pugWrapAttributesThreshold": 3,
+        "pugPreserveAttributeBrackets": true,
+        "pugWrapAttributesPattern": ","
+      }
+    }
+  ]
+}

@@ -1,0 +1,65 @@
+mixin custom-input(options = {})
+  - const label = options.label ? options.label : false;
+  - const placeholder = options.placeholder ? options.placeholder : false;
+  - const type = options.type ? options.type : "text";
+  - const id = options.id ? options.id : false;
+  - const name = options.name ? options.name : false;
+  - const value = options.value ? options.value : null;
+  - const minLength = options.minLength ? options.minLength : false;
+  - const maxLength = options.maxLength ? options.maxLength : false;
+  - const accept = options.accept ? options.accept : false;
+  - const autocomplete = options.autocomplete ? options.autocomplete : false;
+  - const required = options.required ? options.required : false;
+  - const disabled = options.disabled ? options.disabled : false;
+  - const readonly = options.readonly ? options.readonly : false;
+  - const icon = options.icon ? options.icon : false;
+  - const iconClass = options.icon ? (options.icon.position === "end" ? "custom-input__input--icon-end" : "custom-input__input--icon") : false;
+  - const button = options.btn ? options.btn : false;
+  - const buttonClass = options.btn ? "custom-input__input--with-button" : false;
+  - const buttonMod = options.btn && options.btn.mod ? options.btn.mod : false;
+  - const errorText = options.errorText ? options.errorText : false;
+  - const hidden = options.hidden ? options.hidden : false;
+
+  .custom-input(class=disabled || readonly ? "is-disabled" : null)&attributes(attributes)
+    if label
+      label.custom-input__title!= label
+
+    .custom-input__input-wrap
+      input.custom-input__input(
+        accept=accept,
+        autocomplete=autocomplete,
+        class=iconClass,
+        class=buttonClass,
+        id=id,
+        maxlength=maxLength,
+        minlength=minLength,
+        name=name,
+        placeholder=placeholder,
+        required=required,
+        disabled=disabled,
+        readonly=readonly,
+        type=type,
+        value=value,
+        hidden=hidden
+      )
+
+      if (icon && icon.action)
+        button.btn.custom-input__action(aria-label!=icon.label, type=icon.type, disabled=disabled || readonly)
+          +icon(icon.name, icon.width, icon.height)(class=icon.iconClass)
+      else if (icon)
+        +icon(icon.name, icon.width, icon.height).custom-input__icon
+
+      if (button)
+        button.btn.custom-input__button(
+          aria-label!=button.label,
+          type=button.type,
+          class=buttonMod ? "btn--" + buttonMod : null,
+          disabled=disabled || readonly
+        )
+          span!= button.label
+
+      if (errorText)
+        span.input-message!= errorText
+
+      if block
+        block

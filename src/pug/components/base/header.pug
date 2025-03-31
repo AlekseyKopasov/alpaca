@@ -1,0 +1,68 @@
+mixin header(headerMods, currentUrl)
+  -
+    const headerLinks = [
+      {
+        href: "/pug/pages/main/",
+        text: "Главная"
+      },
+      {
+        href: "/pug/pages/onboarding/",
+        text: "Адаптация"
+      },
+      {
+        href: "/pug/pages/contacts/",
+        text: "Контакты"
+      },
+      {
+        href: "#",
+        text: "Новости"
+      },
+      {
+        text: "Сервисы",
+        submenu: [
+          {
+            href: "#",
+            text: "Рейтинг НПР",
+          },
+          {
+            href: "#",
+            text: "Конкурс ППС",
+          },
+          {
+            href: "#",
+            text: "Список информационных сервисов СЗИУ",
+          },
+          {
+            href: "#",
+            text: "Повышение квалификации и\u00a0обучение",
+          },
+          {
+            href: "#",
+            text: "Поиск по\u00a0архиву документов СЗИУ",
+          },
+          {
+            href: "#",
+            text: "Учебные программы, кейсы",
+          },
+          {
+            href: "#",
+            text: "Обмен учебно-методическим контентом",
+          },
+          {
+            href: "/pug/pages/services/",
+            text: "Все сервисы",
+          },
+        ]
+      },
+    ]
+
+  header.header(class=headerMods)
+    .header__top
+      .container
+        if (currentUrl === "index.html")
+          //- lighthouse снимает 10 баллов SEO за <a> без href
+          span.header__logo
+            +icon("icon_logo", 54, 54)
+        else
+          a.header__logo(aria-label="Переход на главную", href="index.html")
+            +icon("icon_logo", 54, 54)
