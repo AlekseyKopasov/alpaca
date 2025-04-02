@@ -7,13 +7,7 @@
 
   @include mixins.vp-1023 {
     order: 3;
-
-    position: absolute;
-    top: 0;
-    right: 0;
-
-    height: 100vh;
-    background-color: variables.$color-black-main;
+    margin-left: 0;
   }
 
   &__btn-menu {
@@ -44,16 +38,27 @@
 
     display: flex;
     align-items: center;
-    gap: 16px 40px;
+    gap: 16px 35px;
 
     flex-wrap: wrap;
 
     @include mixins.vp-1023 {
+      position: absolute;
+      top: 82px;
+      right: 0;
+
+      height: 100vh;
+
       flex-direction: column;
       gap: 0;
       min-width: 374px;
       max-width: 374px;
-      background-color: variables.$color-black-secondary;
+      background-color: variables.$color-black-main;
+    }
+
+    @include mixins.vp-767 {
+      width: 100vw;
+      max-width: 100%;
     }
   }
 
@@ -90,6 +95,7 @@
       justify-content: space-between;
       max-width: 100%;
       width: 100%;
+      background-color: variables.$color-black-secondary;
 
       &:last-child,
       &:first-child {
@@ -105,9 +111,9 @@
   &__link {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 9px;
 
-    padding: 8px 18px;
+    padding: 8px 17px;
     font-family: inherit;
     font-size: 18px;
     font-weight: 400;
@@ -122,22 +128,16 @@
 
     @include mixins.hover {
       color: variables.$color-flamingo;
-
-      // & + .main-nav__inner-list {
-      //   opacity: 1;
-      //   visibility: visible;
-      //   pointer-events: auto;
-      //   z-index: 2;
-      //   overflow: inherit;
-      // }
     }
 
     @include mixins.vp-1023 {
-      width: 100%;
+      width: fit-content;
+      padding: 17px 12px 21px;
+
       display: flex;
       align-items: center;
       justify-content: space-between;
-      border-bottom: 2px solid variables.$color-black-main;
+      border-bottom: 1px solid variables.$color-black-main;
 
       @include mixins.hover {
         color: variables.$color-default-white;
@@ -146,6 +146,10 @@
           position: static;
         }
       }
+    }
+
+    @include mixins.vp-767 {
+      padding-left: 21px;
     }
   }
 
@@ -156,7 +160,7 @@
     text-overflow: ellipsis;
 
     @include mixins.vp-1023 {
-      font-size: 16px;
+      font-size: 18px;
     }
   }
 
@@ -174,12 +178,21 @@
     top: calc(100% + 18px);
     left: 0;
 
+    max-width: 320px;
+
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
     z-index: -1;
 
     transition: opacity variables.$trans-default;
+
+    &.is-open {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      z-index: 2;
+    }
 
     @include mixins.hover {
       opacity: 1;
@@ -197,8 +210,6 @@
 
       width: 50%;
       height: 30px;
-
-      // background-color: red;
     }
 
     &::before {
@@ -289,6 +300,7 @@
       top: 100%;
       left: 0;
       border: 0;
+      max-width: 100%;
 
       @include mixins.hover {
         position: static;
@@ -306,6 +318,14 @@
           display: none;
         }
       }
+
+      .main-nav__item-text {
+        font-size: 16px;
+      }
+    }
+
+    @include mixins.vp-767 {
+      width: 100%;
     }
   }
 }

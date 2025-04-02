@@ -12,6 +12,14 @@
     align-items: center;
     justify-content: space-between;
     gap: 96px;
+
+    @include mixins.vp-1023 {
+      gap: 20px;
+    }
+
+    @include mixins.vp-767 {
+      gap: 10px;
+    }
   }
 
   &__logo {
@@ -50,6 +58,17 @@
 
     @include mixins.hover {
       opacity: 0.6;
+    }
+
+    @include mixins.vp-767 {
+      margin-left: auto;
+    }
+  }
+
+  &__phone-link {
+
+    @include mixins.vp-767 {
+      display: none;
     }
   }
 
