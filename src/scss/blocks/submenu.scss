@@ -16,6 +16,8 @@
   top: calc(100% + 27px);
   left: 0;
 
+  z-index: 1;
+
   &::before {
     content: "";
     position: absolute;
@@ -29,6 +31,16 @@
     border-left: 12px solid transparent;
     border-right: 12px solid transparent;
     border-bottom: 14px solid variables.$color-black-secondary;
+  }
+
+  @include mixins.vp-1023 {
+    position: static;
+
+    border-top: 2px solid rgb(255 255 255 / 10%);
+
+    &::before {
+      display: none;
+    }
   }
 
   &__item {
@@ -48,21 +60,56 @@
       border-radius: 0 0 variables.$border-radius variables.$border-radius;
     }
 
-
     @include mixins.hover {
       background-color: variables.$color-black-main;
+    }
+
+    @include mixins.vp-1023 {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+
+      padding: 0;
+      padding: 8px 18px;
+
+      border-bottom: 2px solid rgb(255 255 255 / 10%);
+
+      // border-top: 2px solid rgb(255 255 255 / 10%);
+
+      &:last-child {
+        border-radius: 0;
+      }
     }
   }
 
   &__link {
-    display: block;
-    color: variables.$color-snow;
     padding: 3px 0;
     white-space: nowrap;
-
-    overflow: hidden;
-    text-overflow: ellipsis;
     width: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+
+    font-family: inherit;
+    font-size: 18px;
+    font-weight: 400;
+    color: inherit;
+
+    span {
+      display: block;
+      max-width: calc(100% - 18px);
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+
+    @include mixins.vp-1023 {
+      text-overflow: inherit;
+
+      // border-bottom: 1px solid rgb(255 255 255 / 10%);
+    }
   }
 
   &__link-icon {

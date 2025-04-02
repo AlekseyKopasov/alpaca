@@ -14,6 +14,8 @@
 
   border-radius: variables.$border-radius;
 
+  z-index: 1;
+
   &::before {
     content: "";
     position: absolute;
@@ -26,6 +28,19 @@
     border-top: 12px solid transparent;
     border-bottom: 12px solid transparent;
     border-right: 14px solid variables.$color-black-secondary;
+  }
+
+  @include mixins.vp-1023 {
+    position: static;
+    display: flex;
+    flex-direction: column;
+    transform: none;
+
+    width: 100%;
+
+    &::before {
+      display: none;
+    }
   }
 
   &__item {
@@ -51,9 +66,22 @@
     @include mixins.hover {
       background-color: variables.$color-black-main;
     }
+
+    @include mixins.vp-1023 {
+
+      &:first-child,
+      &:last-child {
+        padding: 0;
+        border-radius: 0;
+      }
+    }
   }
 
   &__link {
+    font-family: inherit;
+    font-size: 18px;
+    font-weight: 400;
+    color: inherit;
     color: variables.$color-snow;
     white-space: nowrap;
   }

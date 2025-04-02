@@ -3,8 +3,39 @@
 @use "../variables";
 
 .main-nav {
-
   margin-left: auto;
+
+  @include mixins.vp-1023 {
+    order: 3;
+
+    position: absolute;
+    top: 0;
+    right: 0;
+
+    height: 100vh;
+    background-color: variables.$color-black-main;
+  }
+
+  &__btn-menu {
+    display: none;
+    border: none;
+    background-color: transparent;
+    color: variables.$color-sea-buckthorn;
+
+    cursor: pointer;
+
+    transition: color variables.$trans-default;
+
+    @include mixins.hover {
+      color: variables.$color-flamingo;
+    }
+
+    @include mixins.vp-1023 {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
 
   &__list {
     margin: 0;
@@ -13,22 +44,69 @@
 
     display: flex;
     align-items: center;
-    gap: 40px;
+    gap: 16px 40px;
+
+    flex-wrap: wrap;
+
+    @include mixins.vp-1023 {
+      flex-direction: column;
+      gap: 0;
+      min-width: 374px;
+      max-width: 374px;
+      background-color: variables.$color-black-secondary;
+    }
   }
 
   &__item {
     position: relative;
-  }
+    max-width: calc(320px + 30px);
 
-  &__item-icon {
-    position: absolute;
-    top: 50%;
-    right: 0;
+    &:last-child {
+      border-radius: 0 0 variables.$border-radius variables.$border-radius;
+    }
 
-    transform: translate3d(0, -40%, 0);
+    &:first-child {
+      border-radius: variables.$border-radius variables.$border-radius 0 0;
+    }
+
+    @include mixins.hover {
+
+      & .main-nav__icon:not(.main-nav__inner-list .main-nav__icon) {
+        transform: rotate(90deg);
+      }
+
+      .main-nav__inner-list:not(.main-nav__inner-list .main-nav__inner-list) {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+        z-index: 2;
+        overflow: inherit;
+      }
+    }
+
+    @include mixins.vp-1023 {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      max-width: 100%;
+      width: 100%;
+
+      &:last-child,
+      &:first-child {
+        border-radius: 0;
+      }
+
+      @include mixins.hover {
+        background-color: variables.$color-black-main;
+      }
+    }
   }
 
   &__link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
     padding: 8px 18px;
     font-family: inherit;
     font-size: 18px;
@@ -37,10 +115,197 @@
 
     white-space: nowrap;
 
-    transition: color variables.$trans-default;
+    transition:
+      color variables.$trans-default,
+      background-color variables.$trans-default;
+    overflow: hidden;
 
     @include mixins.hover {
       color: variables.$color-flamingo;
+
+      // & + .main-nav__inner-list {
+      //   opacity: 1;
+      //   visibility: visible;
+      //   pointer-events: auto;
+      //   z-index: 2;
+      //   overflow: inherit;
+      // }
+    }
+
+    @include mixins.vp-1023 {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 2px solid variables.$color-black-main;
+
+      @include mixins.hover {
+        color: variables.$color-default-white;
+
+        & + .main-nav__inner-list {
+          position: static;
+        }
+      }
+    }
+  }
+
+  &__item-text {
+    display: block;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    @include mixins.vp-1023 {
+      font-size: 16px;
+    }
+  }
+
+  &__icon {
+    transition: transform variables.$trans-default;
+  }
+
+  &__inner-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    position: absolute;
+
+    top: calc(100% + 18px);
+    left: 0;
+
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    z-index: -1;
+
+    transition: opacity variables.$trans-default;
+
+    @include mixins.hover {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      z-index: 2;
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      transform: translate3d(0, -100%, 0);
+
+      width: 50%;
+      height: 30px;
+
+      // background-color: red;
+    }
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      transform: translate3d(48px, -100%, 0);
+
+      width: 0;
+      height: 0;
+
+      border-left: 12px solid transparent;
+      border-right: 12px solid transparent;
+      border-bottom: 14px solid variables.$color-black-secondary;
+    }
+
+    .main-nav__item {
+      transition: background-color variables.$trans-default;
+      background-color: variables.$color-black-secondary;
+
+      &:first-child {
+        border-radius: 0;
+      }
+
+      @include mixins.hover {
+        background-color: variables.$color-black-main;
+
+        .main-nav__link {
+          color: variables.$color-default-white;
+        }
+
+        .main-nav__icon {
+          transform: rotate(90deg);
+        }
+
+        .main-nav__inner-list {
+          opacity: 1;
+          visibility: visible;
+          pointer-events: auto;
+          z-index: 2;
+          overflow: inherit;
+        }
+      }
+    }
+
+    .main-nav__inner-list {
+      inset: auto 0 0 auto;
+      transform: translate3d(calc(100% + 22px), 0, 0);
+
+      &::before {
+        transform: translate3d(calc(-100% + 4px), calc(0% - 6px), 0);
+        top: auto;
+        bottom: 0;
+
+        width: 0;
+        height: 0;
+        border-top: 12px solid transparent;
+        border-bottom: 12px solid transparent;
+        border-right: 14px solid variables.$color-black-secondary;
+      }
+
+      .main-nav__item {
+        background-color: variables.$color-black-secondary;
+
+        &:first-child {
+          border-radius: variables.$border-radius variables.$border-radius 0 0;
+        }
+      }
+
+      @include mixins.vp-1023 {
+        position: relative;
+        bottom: auto;
+        top: 0;
+        left: 0;
+        border: 0;
+
+        .main-nav__item {
+
+          &:first-child {
+            border-radius: 0;
+          }
+        }
+      }
+    }
+
+    @include mixins.vp-1023 {
+      top: 100%;
+      left: 0;
+      border: 0;
+
+      @include mixins.hover {
+        position: static;
+      }
+
+      &::before {
+        display: none;
+      }
+
+      .main-nav__inner-list {
+        position: absolute;
+        transform: none;
+
+        &::before {
+          display: none;
+        }
+      }
     }
   }
 }
