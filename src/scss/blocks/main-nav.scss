@@ -131,12 +131,11 @@
     }
 
     @include mixins.vp-1023 {
-      width: fit-content;
       padding: 17px 12px 21px;
 
       display: flex;
       align-items: center;
-      justify-content: space-between;
+      justify-content: flex-start;
       border-bottom: 1px solid variables.$color-black-main;
 
       @include mixins.hover {
@@ -161,6 +160,7 @@
 
     @include mixins.vp-1023 {
       font-size: 18px;
+      width: fit-content;
     }
   }
 
@@ -188,10 +188,15 @@
     transition: opacity variables.$trans-default;
 
     &.is-open {
+      position: static;
       opacity: 1;
       visibility: visible;
       pointer-events: auto;
       z-index: 2;
+
+      .main-nav__inner-list.is-open {
+        position: static;
+      }
     }
 
     @include mixins.hover {

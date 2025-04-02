@@ -6,7 +6,7 @@ mixin main-nav()
       li.main-nav__item
         a.main-nav__link(href="/")
           span.main-nav__item-text Главная
-      li.main-nav__item
+      li.main-nav__item.has-dropdown
         a.main-nav__link.main-nav__link--dropdown(href="#")
           span.main-nav__item-text Основное меню
           +icon("icon_drop", 9, 9).main-nav__icon
@@ -20,7 +20,7 @@ mixin main-nav()
           li.main-nav__item
             a.main-nav__link(href="#")
               span.main-nav__item-text Хочу работать у вас
-          li.main-nav__item
+          li.main-nav__item.has-dropdown
             a.main-nav__link.main-nav__link--dropdown(href="#")
               span.main-nav__item-text Есть предложение по работе с клиентами
               +icon("icon_drop", 9, 9).main-nav__icon
