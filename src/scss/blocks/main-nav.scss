@@ -139,6 +139,7 @@
     // Стили для подменю
     .main-nav__inner-list & {
       color: variables.$color-default-white;
+      font-size: 16px;
 
       &:hover {
         background-color: variables.$color-black-main;
@@ -179,7 +180,7 @@
 
   &__icon {
     position: absolute;
-    right: 0.5rem;
+    right: 10px;
     transition: transform variables.$trans-default;
 
     @include mixins.vp-1023 {
@@ -188,13 +189,13 @@
   }
 
   &__inner-list {
-    max-width: 340px;
+    max-width: 320px;
     margin: 0;
     padding: 0;
     list-style: none;
     position: absolute;
-    top: calc(100% + 10px); // Добавляем отступ от шапки
-    margin-top: 10px; // Дополнительный отступ для визуального разделения
+    top: calc(100% + 18px); // Добавляем отступ от шапки
+    // margin-top: 10px; // Дополнительный отступ для визуального разделения
     left: 0;
     min-width: 200px;
     // background-color: variables.$color-black-secondary;
@@ -251,6 +252,9 @@
     .main-nav__inner-list {
       top: 100%;
       left: 100%;
+
+      max-width: fit-content;
+      min-width: auto;
       // margin-left: 10px; // Отступ от родительского пункта
       margin-top: 0; // Убираем отступ сверху
       // transform: translateY(10px) translateX(10px);
@@ -288,7 +292,7 @@
       }
 
       &::before {
-        transform: translate3d(calc(-100%), calc(0% - 6px), 0);
+        transform: translate3d(calc(-100%), calc(0% - 11px), 0);
         top: auto;
         bottom: 0;
         left: 0;
