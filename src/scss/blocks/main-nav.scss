@@ -1,11 +1,13 @@
-@use "../mixins";
-@use "../variables";
+@use '../mixins';
+
+@use '../variables';
 
 .main-nav {
   margin-left: auto;
   position: relative;
 
   // Мобильная версия (<1024px)
+
   @include mixins.vp-1023 {
     order: 3;
     margin-left: 0;
@@ -51,6 +53,7 @@
     flex-wrap: wrap;
 
     // Мобильная версия
+
     @include mixins.vp-1023 {
       position: fixed;
       top: 78px;
@@ -79,8 +82,11 @@
     position: relative;
 
     // Десктоп версия (≥1024px)
-    @media (min-width: 1024px) {
+
+    @media (width >= 1024px) {
+
       &.has-dropdown:hover {
+
         > .main-nav__link {
           color: variables.$color-flamingo;
 
@@ -93,12 +99,15 @@
           opacity: 1;
           visibility: visible;
           pointer-events: auto;
+
           // transform: translateY(0);
         }
       }
 
       // Вложенные элементы подменю
+
       .main-nav__inner-list .main-nav__item:hover {
+
         > .main-nav__link {
           background-color: variables.$color-black-main;
           color: variables.$color-default-white;
@@ -107,6 +116,7 @@
     }
 
     // Мобильная версия
+
     @include mixins.vp-1023 {
       display: flex;
       flex-direction: column;
@@ -121,55 +131,62 @@
   }
 
   &__link {
-    display: flex;
-    align-items: center;
-    gap: 0.5625rem;
-    padding: 0.5rem 1.0625rem;
-    font-family: inherit;
-    font-size: 1.125rem;
-    line-height: 1.45;
-    font-weight: 400;
-    color: inherit;
-    text-decoration: none;
-    white-space: nowrap;
-    transition:
-      color variables.$trans-default,
-      background-color variables.$trans-default;
 
-    @include mixins.focus-visible {
-      outline: 2px solid variables.$color-flamingo;
-      outline-offset: 2px;
-      padding: 20px;
-    }
+    &__link {
+      display: flex;
+      align-items: center;
+      gap: 0.5625rem;
+      padding: 0.5rem 1.0625rem;
+      font-family: inherit;
+      font-size: 1.125rem;
+      line-height: 1.45;
+      font-weight: 400;
+      color: inherit;
+      text-decoration: none;
+      white-space: nowrap;
+      transition:
+        color variables.$trans-default,
+        background-color variables.$trans-default;
 
-    // Стили для подменю
-    .main-nav__inner-list & {
-      color: variables.$color-default-white;
-      font-size: 16px;
-
-      &:hover {
-        background-color: variables.$color-black-main;
+      @include mixins.focus-visible {
+        outline: 2px solid variables.$color-flamingo;
+        outline-offset: 2px;
+        padding: 20px;
       }
-    }
 
-    // Мобильная версия
-    @include mixins.vp-1023 {
-      padding: 1.0625rem 0.75rem 1.3125rem;
-      justify-content: flex-start;
-      border-bottom: 1px solid variables.$color-black-main;
+      // Объединяем все варианты в одном блоке
 
-      &:hover {
+      &--dropdown {
+        position: relative;
+        padding-right: 1.5rem;
+      }
+
+      // Стили для подменю
+
+      .main-nav__inner-list & {
         color: variables.$color-default-white;
+        font-size: 16px;
+
+        &:hover {
+          background-color: variables.$color-black-main;
+        }
       }
-    }
 
-    @include mixins.vp-767 {
-      padding-left: 1.3125rem;
-    }
+      // Мобильная версия
 
-    &--dropdown {
-      position: relative;
-      padding-right: 1.5rem;
+      @include mixins.vp-1023 {
+        padding: 1.0625rem 0.75rem 1.3125rem;
+        justify-content: flex-start;
+        border-bottom: 1px solid variables.$color-black-main;
+
+        &:hover {
+          color: variables.$color-default-white;
+        }
+
+        @include mixins.vp-767 {
+          padding-left: 1.3125rem;
+        }
+      }
     }
   }
 
@@ -204,6 +221,7 @@
     // margin-top: 10px; // Дополнительный отступ для визуального разделения
     left: 0;
     min-width: 200px;
+
     // background-color: variables.$color-black-secondary;
     // opacity: 0;
     // visibility: hidden;
@@ -215,27 +233,28 @@
       visibility 0.3s ease,
       transform 0.3s ease;
 
-      .main-nav__item:not(:last-child) {
-        border-bottom: 1px solid rgba(variables.$color-default-white, 0.1);
+    .main-nav__item:not(:last-child) {
+      border-bottom: 1px solid rgba(variables.$color-default-white, 0.1);
 
-        @include mixins.vp-1023 {
-          border-bottom: none;
-        }
+      @include mixins.vp-1023 {
+        border-bottom: none;
       }
+    }
 
-      .main-nav__item:not(:first-child) {
-        &::after {
-          content: "";
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 35px;
-          background-color: variables.$color-black-secondary;
-          transform: translateY(-50%);
-          z-index: -1;
-        }
+    .main-nav__item:not(:first-child) {
+
+      &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 35px;
+        background-color: variables.$color-black-secondary;
+        transform: translateY(-50%);
+        z-index: -1;
       }
+    }
 
     .main-nav__link {
       overflow: hidden;
@@ -247,7 +266,9 @@
     }
 
     // Подменю первого уровня
+
     &:not(.main-nav__inner-list .main-nav__inner-list) {
+
       > .main-nav__item:last-child > .main-nav__link {
         border-bottom-left-radius: variables.$border-radius;
         border-bottom-right-radius: variables.$border-radius;
@@ -259,18 +280,19 @@
     }
 
     // Подменю второго уровня
+
     .main-nav__inner-list {
       top: 100%;
       left: 100%;
 
       max-width: fit-content;
       min-width: auto;
+
       // margin-left: 10px; // Отступ от родительского пункта
       margin-top: 0; // Убираем отступ сверху
       // transform: translateY(10px) translateX(10px);
       transform: translateY(-100%);
       transform: translate3d(22px, -100%, 0);
-
 
       > .main-nav__item:first-child > .main-nav__link {
         border-top-left-radius: variables.$border-radius;
@@ -286,11 +308,12 @@
         opacity: 1;
         visibility: visible;
         pointer-events: auto;
+
         // transform: translateY(0) translateX(0);
       }
 
       &::after {
-        content: "";
+        content: '';
         position: absolute;
         top: auto;
         bottom: 0;
@@ -316,7 +339,7 @@
     }
 
     &::after {
-      content: "";
+      content: '';
       position: absolute;
       top: 0;
       left: 0;
@@ -327,8 +350,9 @@
     }
 
     // Треугольник-указатель
+
     &::before {
-      content: "";
+      content: '';
       position: absolute;
       top: 0;
       left: 0;
@@ -341,6 +365,7 @@
     }
 
     // Мобильная версия
+
     @include mixins.vp-1023 {
       position: relative;
       top: auto;
@@ -375,13 +400,14 @@
 }
 
 // Оверлей для мобильного меню
+
 .menu-overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgb(0 0 0 / 50%);
   z-index: 99;
   opacity: 0;
   visibility: hidden;
@@ -396,12 +422,15 @@
 }
 
 // Отключение скролла при открытом меню
+
 .no-scroll {
   overflow: hidden;
 }
 
 // Отключение hover-эффектов на тач-устройствах
+
 @media (hover: none) {
+
   .main-nav__item:hover .main-nav__inner-list {
     opacity: 0;
     visibility: hidden;
