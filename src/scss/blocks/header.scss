@@ -1,79 +1,76 @@
 @use "../mixins";
-
 @use "../variables";
 
 .header {
+  position: relative;
   padding: 18px 0;
   background-color: variables.$color-black-main;
   box-shadow: 0 4px 4px 0 rgb(19 20 23 / 40%);
+  z-index: 100;
 
   &__wrapper {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 96px;
+    gap: 6rem;
 
-    @include mixins.vp-1023 {
-      gap: 20px;
-    }
-
-    @include mixins.vp-767 {
-      gap: 10px;
-    }
+    @include mixins.vp-1023 { gap: 1.25rem; }
+    @include mixins.vp-767 { gap: 0.625rem; }
   }
 
+  // Logo
   &__logo {
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-shrink: 0;
+    @include mixins.shrink-zero;
+    transition: variables.$transition-opacity;
 
-    transition: opacity variables.$trans-default;
-
-    @include mixins.hover {
+    @include mixins.hover { opacity: 0.6; }
+    @include mixins.focus-visible {
       opacity: 0.6;
+      outline: 2px solid variables.$color-kelly-green;
+      outline-offset: 2px;
     }
   }
 
   &__logo-icon {
-    max-width: 46px;
-    max-height: 46px;
     width: 100%;
     height: 100%;
-    flex-shrink: 0;
+    max-width: clamp(2.5rem, 4vw, 3rem);
+    max-height: clamp(2.5rem, 4vw, 3rem);
+    @include mixins.shrink-zero;
   }
 
+  // Phone
   &__phone {
     display: flex;
     align-items: center;
-    gap: 10px;
-    padding: 8px;
-
-    font-size: 18px;
+    gap: 0.625rem;
+    padding: 0.5rem;
+    font-size: 1.125rem;
     font-weight: 500;
-
     white-space: nowrap;
+    transition: variables.$transition-opacity;
 
-    transition: opacity variables.$trans-default;
-
-    @include mixins.hover {
+    @include mixins.hover { opacity: 0.6; }
+    @include mixins.focus-visible {
       opacity: 0.6;
+      outline: 2px solid variables.$color-kelly-green;
+      outline-offset: 2px;
     }
 
-    @include mixins.vp-767 {
-      margin-left: auto;
-    }
+    @include mixins.vp-767 { margin-left: auto; }
   }
 
   &__phone-link {
-
     @include mixins.vp-767 {
-      display: none;
+      @include mixins.visually-hidden;
     }
   }
 
   &__phone-icon {
-    flex-shrink: 0;
+    @include mixins.shrink-zero;
     color: variables.$color-kelly-green;
   }
 }

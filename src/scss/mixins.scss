@@ -7,6 +7,34 @@
   }
 }
 
+@mixin focus-visible {
+  &:focus {
+    outline: none; // Отключаем стандартный outline
+  }
+
+  &:focus-visible {
+    @content; // Применяем переданные стили
+  }
+
+  // Фолбэк для браузеров без поддержки :focus-visible (например, Safari до 15.4)
+  @supports not selector(:focus-visible) {
+    &:focus {
+      @content;
+    }
+  }
+}
+
+@mixin visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
 @mixin hover {
 
   @media (hover: hover) {
@@ -95,6 +123,11 @@
     @content;
   }
 }
+
+@mixin shrink-zero {
+  flex-shrink: 0;
+}
+
 
 // Mobile first
 

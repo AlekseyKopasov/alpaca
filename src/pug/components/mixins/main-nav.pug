@@ -1,39 +1,35 @@
+mixin nav-item(href, text, hasDropdown=false)
+  li.main-nav__item(class=hasDropdown ? "has-dropdown" : "")
+    a.main-nav__link(
+      href=href,
+      class=hasDropdown ? "main-nav__link--dropdown" : "",
+      aria-expanded=hasDropdown ? "false" : null
+    )
+      span.main-nav__item-text= text
+      if hasDropdown
+        +icon("icon_drop", 9, 9).main-nav__icon
+    if block && hasDropdown
+      ul.main-nav__inner-list
+        block
+
 mixin main-nav()
-  nav.main-nav
-    button.main-nav__btn-menu(type="button", aria-label="Показать/скрыть меню")
+  nav.main-nav(aria-label="Основное меню")
+    button.main-nav__btn-menu(
+      type="button",
+      aria-label="Показать/скрыть меню",
+      aria-expanded="false",
+      aria-controls="main-nav-list"
+    )
       +icon("icon_burger", 22, 14)
-    ul.main-nav__list
-      li.main-nav__item
-        a.main-nav__link(href="/")
-          span.main-nav__item-text Главная
-      li.main-nav__item.has-dropdown
-        a.main-nav__link.main-nav__link--dropdown(href="#")
-          span.main-nav__item-text Основное меню
-          +icon("icon_drop", 9, 9).main-nav__icon
-        ul.main-nav__inner-list
-          li.main-nav__item
-            a.main-nav__link(href="#")
-              span.main-nav__item-text Заказать вёрстку
-          li.main-nav__item
-            a.main-nav__link(href="#")
-              span.main-nav__item-text Отправить макет на проверку
-          li.main-nav__item
-            a.main-nav__link(href="#")
-              span.main-nav__item-text Хочу работать у вас
-          li.main-nav__item.has-dropdown
-            a.main-nav__link.main-nav__link--dropdown(href="#")
-              span.main-nav__item-text Есть предложение по работе с клиентами
-              +icon("icon_drop", 9, 9).main-nav__icon
-            ul.main-nav__inner-list
-              li.main-nav__item
-                a.main-nav__link(href="#")
-                  span.main-nav__item-text У меня есть оффер
-              li.main-nav__item
-                a.main-nav__link(href="#")
-                  span.main-nav__item-text Сделать партнёром
-      li.main-nav__item
-        a.main-nav__link(href="#")
-          span.main-nav__item-text Наши сервисы
-      li.main-nav__item
-        a.main-nav__link(href="#")
-          span.main-nav__item-text Контакты
+    ul.main-nav__list#main-nav-list
+      +nav-item("/", "Главная")
+      +nav-item("#", "Основное меню", true)
+        +nav-item("#", "Заказать вёрстку")
+        +nav-item("#", "Отправить макет на проверку")
+        +nav-item("#", "Хочу работать у вас")
+        +nav-item("#", "Есть предложение по работе с клиентами", true)
+          +nav-item("#", "У меня есть оффер")
+          +nav-item("#", "Сделать партнёром")
+      +nav-item("#", "Наши сервисы")
+      +nav-item("tel:+123456789", "Контакты").main-nav__phone-link
+        +icon("icon_phone", 16, 16).main-nav__phone-icon

@@ -1,45 +1,44 @@
-import { debounce } from "../utils/debounce";
+class MobileMenu {
+  constructor() {
+    this.menuButton = document.querySelector('.main-nav__btn-menu');
+    this.menuList = document.querySelector('.main-nav__list');
+    this.overlay = document.createElement('div');
+    this.overlay.className = 'menu-overlay';
 
-const TABLET_DISPLAY_WIDTH = 'max-width: 1024px';
+    this.init();
+  }
 
-const menu = document.querySelector('.main-nav');
+  init() {
+    this.menuButton.addEventListener('click', () => { this.toggleMenu(); });
+    document.body.appendChild(this.overlay);
+    this.overlay.addEventListener('click', () => { this.closeMenu(); });
+  }
 
-function resizeHandler() {
-  const isTablet = window.matchMedia(`(${TABLET_DISPLAY_WIDTH})`).matches;
+  toggleMenu() {
+    const isExpanded = this.menuButton.getAttribute('aria-expanded') === 'true';
+    this.menuButton.setAttribute('aria-expanded', !isExpanded);
+    this.menuList.classList.toggle('is-open');
+    this.overlay.classList.toggle('active');
+    document.body.classList.toggle('no-scroll');
+  }
 
-  if (isTablet && menu) {
-    menu.classList.add('is-tablet');
-
-  } else if (!isTablet && menu) {
-    menu.classList.remove('is-tablet');
+  closeMenu() {
+    this.menuButton.setAttribute('aria-expanded', 'false');
+    this.menuList.classList.remove('is-open');
+    this.overlay.classList.remove('active');
+    document.body.classList.remove('no-scroll');
   }
 }
 
-function menuClickHandler(evt: Event) {
-  evt.preventDefault();
-
-  const target = evt.target as HTMLElement;
-  const dropdownItem = target.closest('.has-dropdown') || target.parentElement!.closest('.has-dropdown');
-
-  if (dropdownItem) {
-    const innerList = dropdownItem.querySelector('.main-nav__inner-list');
-    // menu?.querySelector('.is-open')?.classList.remove('is-open');
-    innerList?.classList.toggle('is-open');
-  }
-
-  // if (menu.classList.contains('is-open')) {
-  //   menu.classList.remove('is-open');
-  // } else {
-  //   menu.classList.add('is-open');
-  // }
-}
 
 export const initMainMenu = () => {
-  if (!menu) {
-    return;
-  }
+  new MobileMenu();
+  // new MainNav();
+//   if (!menu) {
+//     return;
+//   }
 
-  window.addEventListener('resize', debounce(resizeHandler, 300));
+//   window.addEventListener('resize', debounce(resizeHandler, 300));
 
-  menu.addEventListener('click', menuClickHandler);
+//   menu.addEventListener('click', menuClickHandler);
 }

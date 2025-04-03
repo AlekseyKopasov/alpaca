@@ -1,10 +1,11 @@
 @use "../mixins";
-
 @use "../variables";
 
 .main-nav {
   margin-left: auto;
+  position: relative;
 
+  // Мобильная версия (<1024px)
   @include mixins.vp-1023 {
     order: 3;
     margin-left: 0;
@@ -15,13 +16,18 @@
     border: none;
     background-color: transparent;
     color: variables.$color-sea-buckthorn;
-
+    padding: 0.5rem;
     cursor: pointer;
-
     transition: color variables.$trans-default;
+    z-index: 101;
 
     @include mixins.hover {
       color: variables.$color-flamingo;
+    }
+
+    @include mixins.focus-visible {
+      outline: 2px solid variables.$color-flamingo;
+      outline-offset: 2px;
     }
 
     @include mixins.vp-1023 {
@@ -35,74 +41,76 @@
     margin: 0;
     padding: 0;
     list-style: none;
-
     display: flex;
     align-items: center;
-    gap: 16px 35px;
-
+    gap: 1rem 2.5rem;
     flex-wrap: wrap;
 
+    // Мобильная версия
     @include mixins.vp-1023 {
-      position: absolute;
-      top: 82px;
+      position: fixed;
+      top: 5rem;
       right: 0;
-
-      height: 100vh;
-
+      height: calc(100vh - 5rem);
+      width: min(100%, 23.375rem);
+      background-color: variables.$color-black-main;
       flex-direction: column;
       gap: 0;
-      min-width: 374px;
-      max-width: 374px;
-      background-color: variables.$color-black-main;
+      transform: translateX(100%);
+      transition: transform 0.3s ease;
+      z-index: 100;
+      overflow-y: auto;
+
+      &.is-open {
+        transform: translateX(0);
+      }
     }
 
     @include mixins.vp-767 {
       width: 100vw;
-      max-width: 100%;
     }
   }
 
   &__item {
     position: relative;
-    max-width: calc(320px + 30px);
 
-    &:last-child {
-      border-radius: 0 0 variables.$border-radius variables.$border-radius;
-    }
+    // Десктоп версия (≥1024px)
+    @media (min-width: 1024px) {
+      &.has-dropdown:hover {
+        > .main-nav__link {
+          color: variables.$color-flamingo;
 
-    &:first-child {
-      border-radius: variables.$border-radius variables.$border-radius 0 0;
-    }
+          > .main-nav__icon {
+            transform: rotate(90deg);
+          }
+        }
 
-    @include mixins.hover {
-
-      & .main-nav__icon:not(.main-nav__inner-list .main-nav__icon) {
-        transform: rotate(90deg);
+        > .main-nav__inner-list {
+          opacity: 1;
+          visibility: visible;
+          pointer-events: auto;
+          // transform: translateY(0);
+        }
       }
 
-      .main-nav__inner-list:not(.main-nav__inner-list .main-nav__inner-list) {
-        opacity: 1;
-        visibility: visible;
-        pointer-events: auto;
-        z-index: 2;
-        overflow: inherit;
+      // Вложенные элементы подменю
+      .main-nav__inner-list .main-nav__item:hover {
+        > .main-nav__link {
+          background-color: variables.$color-black-main;
+          color: variables.$color-default-white;
+        }
       }
     }
 
+    // Мобильная версия
     @include mixins.vp-1023 {
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      max-width: 100%;
       width: 100%;
       background-color: variables.$color-black-secondary;
 
-      &:last-child,
-      &:first-child {
-        border-radius: 0;
-      }
-
-      @include mixins.hover {
+      &:hover {
         background-color: variables.$color-black-main;
       }
     }
@@ -111,44 +119,50 @@
   &__link {
     display: flex;
     align-items: center;
-    gap: 9px;
-
-    padding: 8px 17px;
+    gap: 0.5625rem;
+    padding: 0.5rem 1.0625rem;
     font-family: inherit;
-    font-size: 18px;
+    font-size: 1.125rem;
     font-weight: 400;
     color: inherit;
-
+    text-decoration: none;
     white-space: nowrap;
-
     transition:
       color variables.$trans-default,
       background-color variables.$trans-default;
-    overflow: hidden;
 
-    @include mixins.hover {
-      color: variables.$color-flamingo;
+    @include mixins.focus-visible {
+      outline: 2px solid variables.$color-flamingo;
+      outline-offset: 2px;
     }
 
-    @include mixins.vp-1023 {
-      padding: 17px 12px 21px;
+    // Стили для подменю
+    .main-nav__inner-list & {
+      color: variables.$color-default-white;
 
-      display: flex;
-      align-items: center;
+      &:hover {
+        background-color: variables.$color-black-main;
+      }
+    }
+
+    // Мобильная версия
+    @include mixins.vp-1023 {
+      padding: 1.0625rem 0.75rem 1.3125rem;
       justify-content: flex-start;
       border-bottom: 1px solid variables.$color-black-main;
 
-      @include mixins.hover {
+      &:hover {
         color: variables.$color-default-white;
-
-        & + .main-nav__inner-list {
-          position: static;
-        }
       }
     }
 
     @include mixins.vp-767 {
-      padding-left: 21px;
+      padding-left: 1.3125rem;
+    }
+
+    &--dropdown {
+      position: relative;
+      padding-right: 1.5rem;
     }
   }
 
@@ -159,116 +173,125 @@
     text-overflow: ellipsis;
 
     @include mixins.vp-1023 {
-      font-size: 18px;
       width: fit-content;
     }
   }
 
   &__icon {
+    position: absolute;
+    right: 0.5rem;
     transition: transform variables.$trans-default;
+
+    @include mixins.vp-1023 {
+      right: 1rem;
+    }
   }
 
   &__inner-list {
+    max-width: 340px;
     margin: 0;
     padding: 0;
     list-style: none;
-
     position: absolute;
-
-    top: calc(100% + 18px);
+    top: calc(100% + 10px); // Добавляем отступ от шапки
+    margin-top: 10px; // Дополнительный отступ для визуального разделения
     left: 0;
+    min-width: 200px;
+    // background-color: variables.$color-black-secondary;
+    // opacity: 0;
+    // visibility: hidden;
+    // pointer-events: none;
+    // z-index: 10;
+    // transform: translateY(10px);
+    transition:
+      opacity 0.3s ease,
+      visibility 0.3s ease,
+      transform 0.3s ease;
 
-    max-width: 320px;
+      .main-nav__item:not(:last-child) {
+        border-bottom: 1px solid rgba(variables.$color-default-white, 0.1);
 
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-    z-index: -1;
-
-    transition: opacity variables.$trans-default;
-
-    &.is-open {
-      position: static;
-      opacity: 1;
-      visibility: visible;
-      pointer-events: auto;
-      z-index: 2;
-
-      .main-nav__inner-list.is-open {
-        position: static;
+        @include mixins.vp-1023 {
+          border-bottom: none;
+        }
       }
-    }
 
-    @include mixins.hover {
-      opacity: 1;
-      visibility: visible;
-      pointer-events: auto;
-      z-index: 2;
-    }
+      .main-nav__item:not(:first-child) {
+        &::after {
+          content: "";
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 35px;
+          background-color: variables.$color-black-secondary;
+          transform: translateY(-50%);
+          z-index: -1;
+        }
+      }
 
-    &::after {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      transform: translate3d(0, -100%, 0);
-
-      width: 50%;
-      height: 30px;
-    }
-
-    &::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      transform: translate3d(48px, -100%, 0);
-
-      width: 0;
-      height: 0;
-
-      border-left: 12px solid transparent;
-      border-right: 12px solid transparent;
-      border-bottom: 14px solid variables.$color-black-secondary;
-    }
-
-    .main-nav__item {
-      transition: background-color variables.$trans-default;
+    .main-nav__link {
+      overflow: hidden;
       background-color: variables.$color-black-secondary;
+    }
 
-      &:first-child {
-        border-radius: 0;
-      }
+    // Подменю первого уровня
+    &:not(.main-nav__inner-list .main-nav__inner-list) {
+      > .main-nav__item:last-child > .main-nav__link {
+        border-bottom-left-radius: variables.$border-radius;
+        border-bottom-right-radius: variables.$border-radius;
 
-      @include mixins.hover {
-        background-color: variables.$color-black-main;
-
-        .main-nav__link {
-          color: variables.$color-default-white;
-        }
-
-        .main-nav__icon {
-          transform: rotate(90deg);
-        }
-
-        .main-nav__inner-list {
-          opacity: 1;
-          visibility: visible;
-          pointer-events: auto;
-          z-index: 2;
-          overflow: inherit;
+        @include mixins.vp-1023 {
+          border-radius: 0;
         }
       }
     }
 
+    // Подменю второго уровня
     .main-nav__inner-list {
-      inset: auto 0 0 auto;
-      transform: translate3d(calc(100% + 22px), 0, 0);
+      top: 100%;
+      left: 100%;
+      // margin-left: 10px; // Отступ от родительского пункта
+      margin-top: 0; // Убираем отступ сверху
+      // transform: translateY(10px) translateX(10px);
+      transform: translateY(-100%);
+      transform: translate3d(22px, -100%, 0);
 
-      &::before {
-        transform: translate3d(calc(-100% + 4px), calc(0% - 6px), 0);
+
+      > .main-nav__item:first-child > .main-nav__link {
+        border-top-left-radius: variables.$border-radius;
+        border-top-right-radius: variables.$border-radius;
+      }
+
+      > .main-nav__item:last-child > .main-nav__link {
+        border-bottom-left-radius: variables.$border-radius;
+        border-bottom-right-radius: variables.$border-radius;
+      }
+
+      .main-nav__item:hover > .main-nav__inner-list {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+        // transform: translateY(0) translateX(0);
+      }
+
+      &::after {
+        content: "";
+        position: absolute;
         top: auto;
         bottom: 0;
+        left: 0;
+        width: 40px;
+        height: 35px;
+        background-color: transparent;
+        transform: translateY(0) translateX(-50%);
+      }
+
+      &::before {
+        transform: translate3d(calc(-100%), calc(0% - 6px), 0);
+        top: auto;
+        bottom: 0;
+        left: 0;
 
         width: 0;
         height: 0;
@@ -276,47 +299,51 @@
         border-bottom: 12px solid transparent;
         border-right: 14px solid variables.$color-black-secondary;
       }
-
-      .main-nav__item {
-        background-color: variables.$color-black-secondary;
-
-        &:first-child {
-          border-radius: variables.$border-radius variables.$border-radius 0 0;
-        }
-      }
-
-      @include mixins.vp-1023 {
-        position: relative;
-        bottom: auto;
-        top: 0;
-        left: 0;
-        border: 0;
-
-        .main-nav__item {
-
-          &:first-child {
-            border-radius: 0;
-          }
-        }
-      }
     }
 
-    @include mixins.vp-1023 {
-      top: 100%;
+    &::after {
+      content: "";
+      position: absolute;
+      top: 0;
       left: 0;
-      border: 0;
-      max-width: 100%;
+      width: 150px;
+      height: 35px;
+      background-color: transparent;
+      transform: translateY(-100%);
+    }
 
-      @include mixins.hover {
-        position: static;
-      }
+    // Треугольник-указатель
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      transform: translate3d(48px, -100%, 0);
+      width: 0;
+      height: 0;
+      border-left: 12px solid transparent;
+      border-right: 12px solid transparent;
+      border-bottom: 14px solid variables.$color-black-secondary;
+    }
+
+    // Мобильная версия
+    @include mixins.vp-1023 {
+      position: relative;
+      top: auto;
+      left: auto;
+      max-width: 100%;
+      width: 100%;
+      max-height: 0;
+      background-color: transparent;
+      transform: none;
 
       &::before {
         display: none;
       }
 
       .main-nav__inner-list {
-        position: absolute;
+        position: relative;
+        left: auto;
         transform: none;
 
         &::before {
@@ -324,13 +351,45 @@
         }
       }
 
-      .main-nav__item-text {
-        font-size: 16px;
+      &.is-open {
+        max-height: 100vh;
+        opacity: 1;
+        visibility: visible;
       }
     }
+  }
+}
 
-    @include mixins.vp-767 {
-      width: 100%;
-    }
+// Оверлей для мобильного меню
+.menu-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 99;
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 0.3s ease,
+    visibility 0.3s ease;
+
+  &.active {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+// Отключение скролла при открытом меню
+.no-scroll {
+  overflow: hidden;
+}
+
+// Отключение hover-эффектов на тач-устройствах
+@media (hover: none) {
+  .main-nav__item:hover .main-nav__inner-list {
+    opacity: 0;
+    visibility: hidden;
   }
 }
