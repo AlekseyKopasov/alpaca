@@ -1,4 +1,4 @@
-@use "variables";
+@use 'variables';
 
 @mixin retina {
 
@@ -8,6 +8,7 @@
 }
 
 @mixin focus-visible {
+
   &:focus {
     outline: none; // Отключаем стандартный outline
   }
@@ -17,7 +18,9 @@
   }
 
   // Фолбэк для браузеров без поддержки :focus-visible (например, Safari до 15.4)
+
   @supports not selector(:focus-visible) {
+
     &:focus {
       @content;
     }
@@ -127,7 +130,6 @@
 @mixin shrink-zero {
   flex-shrink: 0;
 }
-
 
 // Mobile first
 

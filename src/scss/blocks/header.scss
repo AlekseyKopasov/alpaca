@@ -1,5 +1,6 @@
-@use "../mixins";
-@use "../variables";
+@use '../mixins';
+
+@use '../variables';
 
 .header {
   position: relative;
@@ -12,21 +13,30 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 6rem;
+    gap: 112px;
 
-    @include mixins.vp-1023 { gap: 1.25rem; }
-    @include mixins.vp-767 { gap: 0.625rem; }
+    @include mixins.vp-1023 {
+      gap: 20px;
+    }
+
+    @include mixins.vp-767 {
+      gap: 10px;
+    }
   }
 
-  // Logo
   &__logo {
     display: flex;
     align-items: center;
     justify-content: center;
+
     @include mixins.shrink-zero;
+
     transition: variables.$transition-opacity;
 
-    @include mixins.hover { opacity: 0.6; }
+    @include mixins.hover {
+      opacity: 0.6;
+    }
+
     @include mixins.focus-visible {
       opacity: 0.6;
       outline: 2px solid variables.$color-kelly-green;
@@ -39,38 +49,47 @@
     height: 100%;
     max-width: 46px;
     max-height: 46px;
+
     @include mixins.shrink-zero;
   }
 
-  // Phone
   &__phone {
     display: flex;
     align-items: center;
-    gap: 0.625rem;
-    padding: 0.5rem;
-    font-size: 1.125rem;
+    gap: 10px;
+    padding: 8px;
+    font-size: 18px;
     font-weight: 500;
     white-space: nowrap;
     transition: variables.$transition-opacity;
 
-    @include mixins.hover { opacity: 0.6; }
+    @include mixins.hover {
+      opacity: 0.6;
+    }
+
     @include mixins.focus-visible {
       opacity: 0.6;
       outline: 2px solid variables.$color-kelly-green;
       outline-offset: 2px;
     }
 
-    @include mixins.vp-767 { margin-left: auto; }
+    @include mixins.vp-767 {
+      margin-left: auto;
+    }
   }
 
   &__phone-link {
+
     @include mixins.vp-767 {
+
       @include mixins.visually-hidden;
     }
   }
 
   &__phone-icon {
+
     @include mixins.shrink-zero;
+
     color: variables.$color-kelly-green;
   }
 }

@@ -6,8 +6,6 @@
   margin-left: auto;
   position: relative;
 
-  // Мобильная версия (<1024px)
-
   @include mixins.vp-1023 {
     order: 3;
     margin-left: 0;
@@ -18,7 +16,7 @@
     border: none;
     background-color: transparent;
     color: variables.$color-sea-buckthorn;
-    padding: 0.5rem;
+    padding: 8px;
     cursor: pointer;
     transition: color variables.$trans-default;
     z-index: 101;
@@ -36,7 +34,6 @@
       display: flex;
       align-items: center;
       justify-content: center;
-
       margin: 15px;
       padding: 0;
       padding-left: 15px;
@@ -49,17 +46,15 @@
     list-style: none;
     display: flex;
     align-items: center;
-    gap: 1rem 2.5rem;
+    gap: 16px 77px;
     flex-wrap: wrap;
-
-    // Мобильная версия
 
     @include mixins.vp-1023 {
       position: fixed;
       top: 78px;
       right: 0;
-      height: calc(100vh - 5rem);
-      width: min(100%, 23.375rem);
+      height: calc(100vh - 80px);
+      width: min(100%, 374px);
       background-color: variables.$color-black-main;
       flex-direction: column;
       gap: 0;
@@ -81,11 +76,9 @@
   &__item {
     position: relative;
 
-    // Десктоп версия (≥1024px)
-
     @media (width >= 1024px) {
 
-      &.has-dropdown:hover {
+      &:hover {
 
         > .main-nav__link {
           color: variables.$color-flamingo;
@@ -99,12 +92,8 @@
           opacity: 1;
           visibility: visible;
           pointer-events: auto;
-
-          // transform: translateY(0);
         }
       }
-
-      // Вложенные элементы подменю
 
       .main-nav__inner-list .main-nav__item:hover {
 
@@ -114,8 +103,6 @@
         }
       }
     }
-
-    // Мобильная версия
 
     @include mixins.vp-1023 {
       display: flex;
@@ -131,14 +118,16 @@
   }
 
   &__link {
+    font-size: 18px;
+    transition: color variables.$trans-default;
 
     &__link {
       display: flex;
       align-items: center;
-      gap: 0.5625rem;
-      padding: 0.5rem 1.0625rem;
+      gap: 9px;
+      padding: 8px 17px;
       font-family: inherit;
-      font-size: 1.125rem;
+      font-size: 18px;
       line-height: 1.45;
       font-weight: 400;
       color: inherit;
@@ -154,14 +143,10 @@
         padding: 20px;
       }
 
-      // Объединяем все варианты в одном блоке
-
       &--dropdown {
         position: relative;
-        padding-right: 1.5rem;
+        padding-right: 24px;
       }
-
-      // Стили для подменю
 
       .main-nav__inner-list & {
         color: variables.$color-default-white;
@@ -172,10 +157,8 @@
         }
       }
 
-      // Мобильная версия
-
       @include mixins.vp-1023 {
-        padding: 1.0625rem 0.75rem 1.3125rem;
+        padding: 17px 12px 21px;
         justify-content: flex-start;
         border-bottom: 1px solid variables.$color-black-main;
 
@@ -184,13 +167,15 @@
         }
 
         @include mixins.vp-767 {
-          padding-left: 1.3125rem;
+          padding-left: 21px;
         }
       }
     }
   }
 
   &__item-text {
+    max-width: 273px;
+    white-space: nowrap;
     display: block;
     width: 100%;
     overflow: hidden;
@@ -203,35 +188,32 @@
 
   &__icon {
     position: absolute;
-    right: 5px;
+    top: 0;
+    right: 8px;
+    transform: translate3d(26px, 114%, 0);
     transition: transform variables.$trans-default;
 
     @include mixins.vp-1023 {
-      right: 1rem;
+      right: 16px;
     }
   }
 
   &__inner-list {
-    max-width: 320px;
+    width: 320px;
     margin: 0;
     padding: 0;
     list-style: none;
     position: absolute;
-    top: calc(100% + 18px); // Добавляем отступ от шапки
-    // margin-top: 10px; // Дополнительный отступ для визуального разделения
-    left: 0;
-    min-width: 200px;
-
-    // background-color: variables.$color-black-secondary;
-    // opacity: 0;
-    // visibility: hidden;
-    // pointer-events: none;
-    // z-index: 10;
-    // transform: translateY(10px);
+    top: calc(100% + 26px);
+    left: -20px;
     transition:
       opacity 0.3s ease,
       visibility 0.3s ease,
       transform 0.3s ease;
+
+    .main-nav__item {
+      width: 100%;
+    }
 
     .main-nav__item:not(:last-child) {
       border-bottom: 1px solid rgba(variables.$color-default-white, 0.1);
@@ -257,15 +239,20 @@
     }
 
     .main-nav__link {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 17px;
+
+      font-size: 16px;
       overflow: hidden;
       background-color: variables.$color-black-secondary;
     }
 
     .main-nav__icon {
       right: 19px;
+      transform: translate3d(0, 183%, 0);
     }
-
-    // Подменю первого уровня
 
     &:not(.main-nav__inner-list .main-nav__inner-list) {
 
@@ -279,19 +266,12 @@
       }
     }
 
-    // Подменю второго уровня
-
     .main-nav__inner-list {
       top: 100%;
       left: 100%;
-
       max-width: fit-content;
       min-width: auto;
-
-      // margin-left: 10px; // Отступ от родительского пункта
-      margin-top: 0; // Убираем отступ сверху
-      // transform: translateY(10px) translateX(10px);
-      transform: translateY(-100%);
+      margin-top: 0;
       transform: translate3d(22px, -100%, 0);
 
       > .main-nav__item:first-child > .main-nav__link {
@@ -308,8 +288,6 @@
         opacity: 1;
         visibility: visible;
         pointer-events: auto;
-
-        // transform: translateY(0) translateX(0);
       }
 
       &::after {
@@ -329,7 +307,6 @@
         top: auto;
         bottom: 0;
         left: 0;
-
         width: 0;
         height: 0;
         border-top: 12px solid transparent;
@@ -349,8 +326,6 @@
       transform: translateY(-100%);
     }
 
-    // Треугольник-указатель
-
     &::before {
       content: '';
       position: absolute;
@@ -363,8 +338,6 @@
       border-right: 12px solid transparent;
       border-bottom: 14px solid variables.$color-black-secondary;
     }
-
-    // Мобильная версия
 
     @include mixins.vp-1023 {
       position: relative;
@@ -399,8 +372,6 @@
   }
 }
 
-// Оверлей для мобильного меню
-
 .menu-overlay {
   position: fixed;
   top: 0;
@@ -421,13 +392,9 @@
   }
 }
 
-// Отключение скролла при открытом меню
-
 .no-scroll {
   overflow: hidden;
 }
-
-// Отключение hover-эффектов на тач-устройствах
 
 @media (hover: none) {
 
