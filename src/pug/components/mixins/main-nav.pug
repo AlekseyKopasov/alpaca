@@ -12,7 +12,7 @@ mixin nav-item(href, text, hasDropdown=false)
       ul.main-nav__inner-list
         block
 
-mixin main-nav()
+mixin main-nav
   nav.main-nav(aria-label="Основное меню")
     button.main-nav__btn-menu(
       type="button",
@@ -21,7 +21,7 @@ mixin main-nav()
       aria-controls="main-nav-list"
     )
       +icon("icon_burger", 22, 14)
-    ul.main-nav__list#main-nav-list
+    ul#main-nav-list.main-nav__list
       +nav-item("/", "Главная")
       +nav-item("#", "Основное меню", true)
         +nav-item("#", "Заказать вёрстку")
@@ -31,5 +31,4 @@ mixin main-nav()
           +nav-item("#", "У меня есть оффер")
           +nav-item("#", "Сделать партнёром")
       +nav-item("#", "Наши сервисы")
-      +nav-item("tel:+123456789", "Контакты").main-nav__phone-link
-        +icon("icon_phone", 16, 16).main-nav__phone-icon
+      +nav-item("#", "Контакты")
