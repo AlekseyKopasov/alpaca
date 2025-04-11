@@ -34,7 +34,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      margin: 15px;
+      margin: 7px;
       padding: 0;
       padding-left: 15px;
     }
@@ -54,7 +54,7 @@
       top: 78px;
       right: 0;
       height: calc(100vh - 80px);
-      width: min(100%, 374px);
+      width: min(100%, 381px);
       background-color: variables.$color-black-main;
       flex-direction: column;
       gap: 0;
@@ -84,7 +84,8 @@
           color: variables.$color-flamingo;
 
           > .main-nav__icon {
-            transform: rotate(90deg);
+            transform: translate3d(26px, 114%, 0) rotate(90deg);
+            transform-origin: center;
           }
         }
 
@@ -101,6 +102,10 @@
           background-color: variables.$color-black-main;
           color: variables.$color-default-white;
         }
+
+        > .main-nav__link .main-nav__icon {
+          transform: translate3d(0, 183%, 0) rotate(90deg);
+        }
       }
     }
 
@@ -111,7 +116,15 @@
       width: 100%;
       background-color: variables.$color-black-secondary;
 
-      &:hover {
+      &.is-open {
+        background-color: variables.$color-black-main;
+
+        > .main-nav__link .main-nav__icon {
+          transform: rotate(90deg);
+        }
+      }
+
+      &.is-open > .main-nav__link {
         background-color: variables.$color-black-main;
       }
     }
@@ -171,6 +184,14 @@
         }
       }
     }
+
+    @include mixins.vp-1023 {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 19px;
+      border-bottom: 1px solid variables.$color-black-main;
+    }
   }
 
   &__item-text {
@@ -183,6 +204,7 @@
 
     @include mixins.vp-1023 {
       width: fit-content;
+      max-width: 100%;
     }
   }
 
@@ -194,7 +216,8 @@
     transition: transform variables.$trans-default;
 
     @include mixins.vp-1023 {
-      right: 16px;
+      position: static;
+      transform: none;
     }
   }
 
@@ -204,8 +227,12 @@
     padding: 0;
     list-style: none;
     position: absolute;
-    top: calc(100% + 26px);
+    top: calc(100% + 25px);
     left: -20px;
+
+    opacity: 0;
+    visibility: hidden;
+
     transition:
       opacity 0.3s ease,
       visibility 0.3s ease,
@@ -247,11 +274,23 @@
       font-size: 16px;
       overflow: hidden;
       background-color: variables.$color-black-secondary;
+
+      @include mixins.vp-1023 {
+        padding: 20px;
+        justify-content: flex-start;
+        line-height: 1.4;
+
+        border-bottom: 1px solid variables.$color-black-main;
+      }
     }
 
     .main-nav__icon {
       right: 19px;
       transform: translate3d(0, 183%, 0);
+
+      @include mixins.vp-1023 {
+        transform: none;
+      }
     }
 
     &:not(.main-nav__inner-list .main-nav__inner-list) {
@@ -357,6 +396,7 @@
         position: relative;
         left: auto;
         transform: none;
+        max-width: 100%;
 
         &::before {
           display: none;
@@ -394,12 +434,4 @@
 
 .no-scroll {
   overflow: hidden;
-}
-
-@media (hover: none) {
-
-  .main-nav__item:hover .main-nav__inner-list {
-    opacity: 0;
-    visibility: hidden;
-  }
 }

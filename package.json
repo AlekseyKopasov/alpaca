@@ -82,5 +82,7 @@
     "not ie <= 11",
     "Firefox ESR"
   ],
-  "dependencies": {}
+  "dependencies": {
+    "scroll-lock": "2.1.5"
+  }
 }
