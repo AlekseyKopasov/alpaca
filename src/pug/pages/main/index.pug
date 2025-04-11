@@ -1,9 +1,3 @@
-//- &nbsp; = \u00a0
-//- &mdash; = \u2014
-//- &laquo; = \u00ab
-//- &raquo; = \u00bb
-//- &#8470; = \u2116
-
 extends ../../components/base/layout.pug
 
 block variables
@@ -11,6 +5,9 @@ block variables
   - const currentUrl = "index.html";
 
 block main
+  .main
+    .main__background
+      +picture("content", "alpaca", "jpg", "100%", "100%", "")
 
   block scripts
     script(src="/ts/main.ts", type="module")
